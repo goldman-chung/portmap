@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project name="portmap" default="dist" basedir=".">
+	<property name="binjar" value="portmap-1.0.jar" />
+	<property name="dist" value="${basedir}/build" />
+	<property name="bin" value="${basedir}/bin" />
+	<property name="binskip" value="test/**" />
+	<property name="unjarred" value="**/*.jar, doc/**, README.html, .classpath, .project" />
+	
+	<target name="cleanup">
+		<delete dir="${dist}" />
+	</target>
+	
+	<target name="init">
+		<mkdir dir="${dist}"/>
+	</target>
+	
+	<target name="dist" depends="cleanup, init">	
+		<jar destfile="${dist}/${binjar}" excludes="${unjarred}, **/*.java, build.xml">
+			<manifest>
+				<attribute name="Main-Class" value="com.codesky.portmap.Start" />
+				<section name="Bundle-Information">
+					<attribute name="Bundle-Vendor"		value="CODESKY.COM" />
+					<attribute name="Bundle-Version"	value="1.0.0" />
+				</section>
+			</manifest>
+			<fileset dir="${bin}" excludes="${binskip}" />
+		</jar>
+	</target>
+	
+</project>
